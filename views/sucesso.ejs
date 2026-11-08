@@ -1,0 +1,25 @@
+<%- include('partials/header') %>
+
+<section class="section">
+  <div class="container narrow center">
+    <div class="success-icon" aria-hidden="true">✅</div>
+    <h1>Pedido enviado!</h1>
+    <p class="section-sub">
+      Recebemos o pedido para <strong><%= booking.pet_name %></strong>.
+      <% if (booking.service === 'creche') { %>
+        Creche no dia <strong><%= fmtDate(booking.check_in) %></strong>.
+      <% } else { %>
+        Hospedagem de <strong><%= fmtDate(booking.check_in) %></strong> a <strong><%= fmtDate(booking.check_out) %></strong>.
+      <% } %>
+      Vamos analisar e confirmar a vaga pelo WhatsApp.
+    </p>
+    <p>Para agilizar, você pode nos chamar agora:</p>
+    <div class="hero-actions center-actions">
+      <a href="<%= waLink(message) %>" class="btn" target="_blank" rel="noopener">Enviar mensagem no WhatsApp</a>
+      <a href="/" class="btn btn-outline">Voltar ao início</a>
+    </div>
+    <p class="hint">O pedido só é confirmado depois do nosso retorno.</p>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

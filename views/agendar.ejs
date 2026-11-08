@@ -1,0 +1,116 @@
+<%- include('partials/header') %>
+<% const f = locals.form || {}; %>
+
+<section class="section">
+  <div class="container narrow">
+    <h1>Agendar</h1>
+    <p class="section-sub">Preencha os dados abaixo. É um pedido de agendamento: nós confirmamos a vaga com você pelo WhatsApp.</p>
+
+    <% if (locals.errors && errors.length) { %>
+      <div class="alert alert-error" role="alert">
+        <strong>Confira os campos:</strong>
+        <ul><% errors.forEach(function (e) { %><li><%= e %></li><% }) %></ul>
+      </div>
+    <% } %>
+
+    <form method="post" action="/agendar" class="form" novalidate data-booking-form>
+      <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <fieldset>
+        <legend>Serviço</legend>
+        <div class="choice-row">
+          <label class="choice"><input type="radio" name="service" value="hospedagem" <%= (f.service || 'hospedagem') === 'hospedagem' ? 'checked' : '' %>> Hospedagem</label>
+          <label class="choice"><input type="radio" name="service" value="creche" <%= f.service === 'creche' ? 'checked' : '' %>> Creche (no dia)</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Datas</legend>
+        <div class="grid-2">
+          <label>Entrada
+            <input type="date" name="check_in" min="<%= today %>" value="<%= f.check_in || '' %>" required>
+          </label>
+          <label data-checkout-wrap>Saída
+            <input type="date" name="check_out" min="<%= today %>" value="<%= f.check_out || '' %>">
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Tutor</legend>
+        <div class="grid-2">
+          <label>Nome completo
+            <input type="text" name="tutor_name" maxlength="120" value="<%= f.tutor_name || '' %>" required>
+          </label>
+          <label>WhatsApp (com DDD)
+            <input type="tel" name="whatsapp" inputmode="tel" placeholder="(41) 99999-9999" maxlength="20" value="<%= f.whatsapp || '' %>" required>
+          </label>
+        </div>
+        <label>E-mail (opcional)
+          <input type="email" name="email" maxlength="160" value="<%= f.email || '' %>">
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Sobre o cão</legend>
+        <div class="grid-2">
+          <label>Nome do cão
+            <input type="text" name="pet_name" maxlength="80" value="<%= f.pet_name || '' %>" required>
+          </label>
+          <label>Raça
+            <input type="text" name="breed" maxlength="80" placeholder="Ex: Labrador, SRD" value="<%= f.breed || '' %>" required>
+          </label>
+        </div>
+
+        <div class="grid-2">
+          <label>Porte
+            <select name="size" required>
+              <option value="">Selecione</option>
+              <% Object.keys(labels.size).forEach(function (k) { %>
+                <option value="<%= k %>" <%= f.size === k ? 'selected' : '' %>><%= labels.size[k] %></option>
+              <% }) %>
+            </select>
+          </label>
+          <div class="age-field">
+            <label>Idade
+              <input type="number" name="age_value" min="0" max="40" value="<%= f.age_value || '' %>" required>
+            </label>
+            <label>&nbsp;
+              <select name="age_unit" aria-label="Unidade da idade">
+                <option value="anos" <%= f.age_unit !== 'meses' ? 'selected' : '' %>>anos</option>
+                <option value="meses" <%= f.age_unit === 'meses' ? 'selected' : '' %>>meses</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <p class="q">É castrado(a)?</p>
+        <div class="choice-row">
+          <label class="choice"><input type="radio" name="neutered" value="sim" <%= f.neutered === 'sim' ? 'checked' : '' %>> Sim</label>
+          <label class="choice"><input type="radio" name="neutered" value="nao" <%= f.neutered === 'nao' ? 'checked' : '' %>> Não</label>
+        </div>
+
+        <p class="q">É sociável com outros cães?</p>
+        <div class="choice-row">
+          <% Object.keys(labels.sociable).forEach(function (k) { %>
+            <label class="choice"><input type="radio" name="sociable" value="<%= k %>" <%= f.sociable === k ? 'checked' : '' %>> <%= labels.sociable[k] %></label>
+          <% }) %>
+        </div>
+
+        <p class="q">Vacinas em dia?</p>
+        <div class="choice-row">
+          <label class="choice"><input type="radio" name="vaccinated" value="sim" <%= f.vaccinated === 'sim' ? 'checked' : '' %>> Sim</label>
+          <label class="choice"><input type="radio" name="vaccinated" value="nao" <%= f.vaccinated === 'nao' ? 'checked' : '' %>> Não</label>
+        </div>
+
+        <label>Observações (alimentação, medicamentos, comportamento…)
+          <textarea name="notes" rows="4" maxlength="1000"><%= f.notes || '' %></textarea>
+        </label>
+      </fieldset>
+
+      <button type="submit" class="btn btn-full">Enviar pedido de agendamento</button>
+    </form>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,59 @@
+<%- include('../partials/header') %>
+
+<section class="section">
+  <div class="container">
+    <div class="admin-top">
+      <h1>Agendamentos</h1>
+      <form method="post" action="/admin/logout"><button type="submit" class="btn btn-outline btn-small">Sair</button></form>
+    </div>
+
+    <div class="stats">
+      <% ['pendente', 'confirmado', 'concluido', 'cancelado'].forEach(function (s) { %>
+        <a class="stat stat-<%= s %> <%= activeStatus === s ? 'is-active' : '' %>" href="/admin?status=<%= s %>">
+          <span class="stat-n"><%= counts[s] %></span>
+          <span class="stat-l"><%= labels.status[s] %></span>
+        </a>
+      <% }) %>
+    </div>
+
+    <div class="filters">
+      <a href="/admin" class="chip <%= activeStatus === '' ? 'is-active' : '' %>">Todos</a>
+      <% ['pendente', 'confirmado', 'concluido', 'cancelado'].forEach(function (s) { %>
+        <a href="/admin?status=<%= s %>" class="chip <%= activeStatus === s ? 'is-active' : '' %>"><%= labels.status[s] %></a>
+      <% }) %>
+    </div>
+
+    <% if (!bookings.length) { %>
+      <p class="empty">Nenhum agendamento por aqui ainda.</p>
+    <% } else { %>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th><th>Serviço</th><th>Período</th><th>Cão</th><th>Porte</th><th>Sociável</th><th>Tutor</th><th>Status</th><th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% bookings.forEach(function (b) { %>
+              <tr>
+                <td data-label="#"><%= b.id %></td>
+                <td data-label="Serviço"><%= labels.service[b.service] %></td>
+                <td data-label="Período">
+                  <% if (b.service === 'creche') { %><%= fmtDate(b.check_in) %><% } else { %><%= fmtDate(b.check_in) %> → <%= fmtDate(b.check_out) %><% } %>
+                </td>
+                <td data-label="Cão"><strong><%= b.pet_name %></strong><br><small><%= b.breed %> · <%= b.age_value %> <%= b.age_unit %></small></td>
+                <td data-label="Porte"><%= b.size %></td>
+                <td data-label="Sociável"><%= labels.sociable[b.sociable] %></td>
+                <td data-label="Tutor"><%= b.tutor_name %><br><small><a href="https://wa.me/<%= b.whatsapp %>" target="_blank" rel="noopener"><%= b.whatsapp %></a></small></td>
+                <td data-label="Status"><span class="badge badge-<%= b.status %>"><%= labels.status[b.status] %></span></td>
+                <td><a href="/admin/agendamentos/<%= b.id %>" class="btn btn-small">Abrir</a></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

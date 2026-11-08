@@ -1,0 +1,21 @@
+<%- include('../partials/header') %>
+
+<section class="section">
+  <div class="container tiny">
+    <h1>Painel administrativo</h1>
+    <% if (locals.error && error) { %>
+      <div class="alert alert-error" role="alert"><%= error %></div>
+    <% } %>
+    <form method="post" action="/admin/login" class="form card form-card">
+      <label>Usuário
+        <input type="text" name="user" autocomplete="username" required autofocus>
+      </label>
+      <label>Senha
+        <input type="password" name="password" autocomplete="current-password" required>
+      </label>
+      <button type="submit" class="btn btn-full">Entrar</button>
+    </form>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>
