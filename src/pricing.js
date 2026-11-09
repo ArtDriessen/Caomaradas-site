@@ -1,7 +1,7 @@
 // Preços do hotel e do day use. Para mudar um valor, altere aqui e publique de novo.
 const pricing = {
   hotel: {
-    single: 175, // diária com 1 cão
+    single: 170, // diária com 1 cão
     multi: 150, // diária por cão quando são 2 ou mais cães do mesmo tutor
   },
   dayuse: 100, // por cão
