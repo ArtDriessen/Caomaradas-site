@@ -4,11 +4,11 @@
     <h2>Como <span class="hl">chegar</span></h2>
     <p class="section-sub"><%= site.address %></p>
     <div class="map-frame">
-      <iframe title="Mapa com a localização da Cãomaradas" src="https://www.google.com/maps?q=<%= encodeURIComponent(site.address) %>&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      <iframe title="Mapa com a localização da Cãomaradas" src="https://www.google.com/maps?q=<%= encodeURIComponent(site.mapQuery) %>&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
     </div>
     <div class="center map-actions">
-      <a href="https://www.google.com/maps/dir/?api=1&destination=<%= encodeURIComponent(site.address) %>" class="btn" target="_blank" rel="noopener">Como chegar</a>
-      <a href="https://www.google.com/maps/search/?api=1&query=<%= encodeURIComponent(site.address) %>" class="btn btn-outline" target="_blank" rel="noopener">Abrir no Google Maps</a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=<%= encodeURIComponent(site.mapQuery) %>" class="btn" target="_blank" rel="noopener">Como chegar</a>
+      <a href="https://www.google.com/maps/search/?api=1&query=<%= encodeURIComponent(site.mapQuery) %>" class="btn btn-outline" target="_blank" rel="noopener">Abrir no Google Maps</a>
     </div>
   </div>
 </section>
