@@ -1,6 +1,7 @@
 <%- include('partials/header', { crumbs: [{ label: 'Serviços', href: '/#servicos' }, { label: 'Creche' }] }) %>
 
 <section class="hero">
+  <div class="hero-deco" aria-hidden="true"><span class="sun"></span><span class="cloud c1"></span><span class="cloud c2"></span><span class="cloud c3"></span></div>
   <div class="container hero-inner">
     <div class="hero-text">
       <p class="eyebrow">Creche e day use</p>
@@ -13,8 +14,10 @@
     </div>
     <div class="hero-photo">
       <img src="/img/cao-creche.jpg" alt="Cão golden retriever deitado na grama do espaço da creche" width="546" height="752">
+      <img class="pet-bubble" src="/img/cao-pequeno.jpg" alt="Cãozinho de porte pequeno com lenço verde de patinha" loading="lazy" width="132" height="132">
     </div>
   </div>
+  <div class="waves" aria-hidden="true"><i></i><i></i><i></i></div>
 </section>
 
 <section class="section">
@@ -42,7 +45,45 @@
   </div>
 </section>
 
-<section class="section section-alt">
+<section class="section section-alt" id="pacotes">
+  <div class="container">
+    <h2>Pacotes de <span class="hl">creche</span></h2>
+    <p class="section-sub">Mais diversão, socialização e bem-estar para o seu pet, com planos que cabem na sua rotina.</p>
+    <div class="pack-wrap">
+      <div class="pack-table">
+        <div class="pack-row pack-head"><span>Período</span><span>1x na semana</span><span>2x na semana</span></div>
+        <div class="pack-row">
+          <div class="pack-name">Mensal<small>Compromisso mês a mês</small></div>
+          <div class="pack-val"><small class="mob">1x na semana</small>R$ 250<small>,00</small></div>
+          <div class="pack-val"><small class="mob">2x na semana</small>R$ 400<small>,00</small></div>
+        </div>
+        <div class="pack-row">
+          <div class="pack-name">Trimestral<small>Mais economia e benefícios!</small></div>
+          <div class="pack-val"><small class="mob">1x na semana</small>R$ 690<small>,00</small></div>
+          <div class="pack-val"><small class="mob">2x na semana</small>R$ 1.080<small>,00</small></div>
+        </div>
+      </div>
+      <div class="pack-side">
+        <div class="badge-10">
+          <strong>10%</strong>
+          <span>de desconto em hospedagens, day use e atendimento veterinário para clientes com pacote mensal e/ou trimestral</span>
+        </div>
+        <div class="pack-pet">
+          <img src="/img/cao-pequeno-2.jpg" alt="Cãozinho de porte pequeno com lenço verde de patinha" loading="lazy">
+          <p>Aqui seu pet se diverte, faz amizades e é cuidado com muito amor!</p>
+        </div>
+      </div>
+    </div>
+    <p class="pay-note" style="margin-top:18px">💳 <strong>Formas de pagamento:</strong> Pix ou crédito (com juros da operadora).</p>
+    <div class="folder-links">
+      <a href="/folders/pacotes-creche-feed.png" class="btn btn-outline btn-small" download>Baixar folder (feed)</a>
+      <a href="/folders/pacotes-creche-story.png" class="btn btn-outline btn-small" download>Baixar folder (story)</a>
+      <a href="/avaliacao" class="btn btn-small">Agendar avaliação</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
   <div class="container">
     <h2>Como <span class="hl">funciona</span></h2>
     <p class="section-sub">Antes de frequentar a creche, cada cão passa por uma avaliação.</p>
@@ -56,7 +97,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section section-alt">
   <div class="container">
     <h2>Requisitos para <span class="hl">frequentar</span></h2>
     <p class="section-sub">Tudo para garantir a segurança e o bem-estar de todos.</p>
@@ -64,7 +105,7 @@
   </div>
 </section>
 
-<section class="section section-alt">
+<section class="section">
   <div class="container narrow">
     <h2>Perguntas <span class="hl">frequentes</span></h2>
     <div class="faq">
@@ -79,6 +120,18 @@
       <details>
         <summary>Quais são os requisitos?</summary>
         <p>Vacinas em dia (V8/V10 e antirrábica), controle de pulgas e vermes atualizado, cão socializado e castração obrigatória para cães acima de 6 meses.</p>
+      </details>
+      <details>
+        <summary>Quanto custam os pacotes de creche?</summary>
+        <p>Mensal: R$ 250,00 (1x na semana) ou R$ 400,00 (2x na semana). Trimestral: R$ 690,00 (1x na semana) ou R$ 1.080,00 (2x na semana).</p>
+      </details>
+      <details>
+        <summary>Quais as formas de pagamento dos pacotes?</summary>
+        <p>Pix ou crédito, com os juros da operadora.</p>
+      </details>
+      <details>
+        <summary>Que vantagens tem quem contrata um pacote?</summary>
+        <p>Clientes com pacote mensal e/ou trimestral têm 10% de desconto em hospedagens, day use e atendimento veterinário.</p>
       </details>
       <details>
         <summary>O pedido de avaliação já garante o horário?</summary>

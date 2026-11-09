@@ -40,6 +40,18 @@
     });
   }
 
+  // Revelar elementos ao rolar a página (não vale para o painel admin)
+  if (!document.querySelector('.admin-top') && 'IntersectionObserver' in window &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var targets = document.querySelectorAll('.card:not(.form-card), .svc-card, .price-card, .feature, .req, .steps li, .faq details, .team-photo, .team-list li, .pack-table, .pack-side > *, .cta-banner');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12 });
+    targets.forEach(function (el) { el.classList.add('reveal'); io.observe(el); });
+  }
+
   // Confirmação antes de ações perigosas
   document.querySelectorAll('form[data-confirm]').forEach(function (form) {
     form.addEventListener('submit', function (e) {

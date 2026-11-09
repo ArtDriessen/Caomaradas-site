@@ -8,6 +8,11 @@ Site em **Node.js (Express + EJS + MySQL)** com:
 - Painel administrativo em `/admin` (ver pedidos, confirmar/cancelar, anotações internas, excluir)
 - Botão flutuante de WhatsApp e formulário de contato que abre o WhatsApp com a mensagem pronta
 
+## Folders e fotos
+
+- Folders dos pacotes de creche em `public/folders/` (feed 1080x1350 e story 1080x1920), com download na página da creche.
+- Fotos em `public/img/`. Para trocar o cãozinho pequeno do fundo e dos folders, substitua `cao-pequeno.jpg` e `cao-pequeno-2.jpg` (use fotos suas ou de bancos gratuitos como Unsplash e Pexels, conferindo a licença).
+
 ## Estrutura
 
 ```

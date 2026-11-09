@@ -1,20 +1,24 @@
 /* ============================================================
-   PALETA — tirada da logo da Cãomaradas (verde sálvia, marrom, creme)
+   PALETA — praia: turquesa do mar, sol laranja, areia (a logo mantém verde sálvia e marrom)
    ============================================================ */
 :root {
-  --primary: #4a7f62;
-  --primary-dark: #335a45;
-  --accent: #b0733f;
-  --bg: #fbf6ec;
-  --bg-alt: #f1e6d2;
-  --ink: #2b2b2b;
-  --muted: #6b6b6b;
+  --primary: #0e9aa7;
+  --primary-dark: #0a5c73;
+  --accent: #ff9f1c;
+  --coral: #ff6b5b;
+  --sage: #8fc4a3;
+  --sky: #bfeaf7;
+  --sand: #ffeec4;
+  --bg: #fff8e7;
+  --bg-alt: #ffeec4;
+  --ink: #23333a;
+  --muted: #5d6f76;
   --card: #ffffff;
-  --line: #e6d9c2;
+  --line: #f1dfae;
   --danger: #b3382c;
   --ok: #2e7d4f;
-  --radius: 16px;
-  --shadow: 0 6px 20px rgba(60, 40, 10, 0.08);
+  --radius: 18px;
+  --shadow: 0 8px 24px rgba(10, 92, 115, 0.12);
   --font-title: 'Fredoka', 'Nunito', system-ui, sans-serif;
   --font-body: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
@@ -305,3 +309,130 @@ input[type=text], input[type=tel], input[type=email], input[type=date], input[ty
   .footer-grid { grid-template-columns: 1fr; }
   .price { font-size: 2.7rem; }
 }
+
+
+/* ============================================================
+   Visual de praia — v3 (cores vivas, fundo animado, detalhes litorâneos)
+   ============================================================ */
+body { background: linear-gradient(180deg, #e3f6fc 0%, #fff8e7 38%, #fff1cc 100%) fixed; position: relative; overflow-x: hidden; }
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cg transform='translate(46 56) rotate(-20) scale(1.3)' fill='%230e9aa7' fill-opacity='0.1'%3E%3Cellipse cx='0' cy='6' rx='7' ry='5.5'/%3E%3Cellipse cx='-9' cy='-2' rx='2.6' ry='3.4' transform='rotate(-20 -9 -2)'/%3E%3Cellipse cx='-3.5' cy='-8' rx='2.6' ry='3.6'/%3E%3Cellipse cx='3.5' cy='-8' rx='2.6' ry='3.6'/%3E%3Cellipse cx='9' cy='-2' rx='2.6' ry='3.4' transform='rotate(20 9 -2)'/%3E%3C/g%3E%3Cpolygon points='190.0,53.0 194.8,63.4 206.2,64.7 197.8,72.5 200.0,83.8 190.0,78.2 180.0,83.8 182.2,72.5 173.8,64.7 185.2,63.4' fill='%23ff6b5b' fill-opacity='0.13' stroke='%23ff6b5b' stroke-opacity='0.13' stroke-width='3' stroke-linejoin='round' transform='rotate(15 190 70)'/%3E%3Cg transform='translate(96 190)' fill='%23ff9f1c' fill-opacity='0.14'%3E%3Cpath d='M0 12 L-14 -4 Q0 -18 14 -4 Z'/%3E%3Cpath d='M0 12 L-6 -8 M0 12 L0 -11 M0 12 L6 -8' stroke='%23ffffff' stroke-opacity='.6' stroke-width='1.2' fill='none'/%3E%3C/g%3E%3Cg transform='translate(210 205) rotate(25) scale(1.1)' fill='%230a5c73' fill-opacity='0.08'%3E%3Cellipse cx='0' cy='6' rx='7' ry='5.5'/%3E%3Cellipse cx='-9' cy='-2' rx='2.6' ry='3.4' transform='rotate(-20 -9 -2)'/%3E%3Cellipse cx='-3.5' cy='-8' rx='2.6' ry='3.6'/%3E%3Cellipse cx='3.5' cy='-8' rx='2.6' ry='3.6'/%3E%3Cellipse cx='9' cy='-2' rx='2.6' ry='3.4' transform='rotate(20 9 -2)'/%3E%3C/g%3E%3Ccircle cx='140' cy='20' r='5' fill='none' stroke='%230e9aa7' stroke-opacity='.15' stroke-width='2'/%3E%3Ccircle cx='20' cy='150' r='3.5' fill='none' stroke='%230e9aa7' stroke-opacity='.15' stroke-width='2'/%3E%3C/svg%3E"); background-size: 260px 260px;
+  animation: drift 80s linear infinite;
+}
+@keyframes drift { to { background-position: 260px 520px; } }
+
+h1, h2, h3 { color: var(--primary-dark); }
+.eyebrow { color: var(--coral); filter: none; }
+.hl { background: linear-gradient(transparent 58%, rgba(255, 159, 28, .55) 58%); color: var(--primary-dark); }
+.site-header { border-bottom: 3px solid var(--sky); background: rgba(255, 255, 255, .94); backdrop-filter: blur(6px); }
+.nav a.is-current { box-shadow: inset 0 -3px 0 var(--accent); }
+
+/* Botões */
+.btn { background: linear-gradient(135deg, #12b3b8, #0e9aa7); border-color: #0e9aa7; box-shadow: 0 4px 12px rgba(14, 154, 167, .35); }
+.btn:hover { background: linear-gradient(135deg, #0e9aa7, #0a5c73); border-color: #0a5c73; }
+.btn-outline { background: #fff; color: var(--primary); box-shadow: none; }
+.btn-outline:hover { color: #fff; }
+.btn-danger { background: var(--danger); border-color: var(--danger); box-shadow: none; }
+.btn-light { background: #fff; color: var(--primary-dark); border-color: #fff; box-shadow: none; }
+.btn-ghost { background: transparent; box-shadow: none; }
+
+/* Hero com céu, sol, nuvens e ondas */
+.hero {
+  position: relative; overflow: hidden;
+  background: linear-gradient(180deg, #8fdcf0 0%, #c9eef9 48%, #fff3cf 100%);
+  padding-bottom: clamp(90px, 12vw, 150px);
+}
+.hero-inner { position: relative; z-index: 3; }
+.hero-deco { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.sun { position: absolute; top: 28px; right: 7%; width: 110px; height: 110px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff2a8, #ffc933 55%, #ff9f1c); box-shadow: 0 0 0 14px rgba(255, 214, 90, .25), 0 0 0 34px rgba(255, 214, 90, .14); animation: pulse 5s ease-in-out infinite; }
+@keyframes pulse { 50% { transform: scale(1.06); } }
+.cloud { position: absolute; height: 46px; width: 150px; background: #fff; border-radius: 50px; opacity: .92; animation: float 70s linear infinite alternate; }
+.cloud::before, .cloud::after { content: ''; position: absolute; background: #fff; border-radius: 50%; }
+.cloud::before { width: 62px; height: 62px; left: 22px; top: -30px; }
+.cloud::after { width: 48px; height: 48px; left: 78px; top: -20px; }
+.cloud.c1 { top: 60px; left: 4%; }
+.cloud.c2 { top: 150px; left: 46%; transform: scale(.7); animation-duration: 95s; opacity: .8; }
+.cloud.c3 { top: 36px; left: 62%; transform: scale(.55); animation-duration: 120s; opacity: .75; }
+@keyframes float { to { margin-left: 110px; } }
+.waves { position: absolute; left: 0; right: 0; bottom: -1px; height: clamp(70px, 10vw, 120px); z-index: 2; pointer-events: none; }
+.waves i { position: absolute; inset: 0; background-repeat: repeat-x; background-size: 1200px 100%; }
+.waves i:nth-child(1) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0 60 C200 20 400 100 600 60 S1000 100 1200 60 V120 H0Z' fill='%2312b3b8' fill-opacity='0.45'/%3E%3C/svg%3E"); animation: slide 22s linear infinite; bottom: 14px; }
+.waves i:nth-child(2) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0 60 C200 20 400 100 600 60 S1000 100 1200 60 V120 H0Z' fill='%230e9aa7' fill-opacity='0.5'/%3E%3C/svg%3E"); animation: slide 15s linear infinite reverse; bottom: 6px; }
+.waves i:nth-child(3) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0 60 C200 20 400 100 600 60 S1000 100 1200 60 V120 H0Z' fill='%23fff8e7' fill-opacity='1'/%3E%3C/svg%3E"); animation: slide 30s linear infinite; }
+@keyframes slide { to { background-position-x: 1200px; } }
+.hero-photo { position: relative; }
+.hero-photo img:not(.pet-bubble) { border-color: #fff; box-shadow: 0 14px 34px rgba(10, 92, 115, .28); }
+.hero-photo .pet-bubble { position: absolute; left: -6px; bottom: -18px; width: 132px; height: 132px; max-width: none; border-radius: 50%; object-fit: cover; object-position: center 25%; border: 5px solid #fff; box-shadow: 0 8px 22px rgba(10, 92, 115, .3); background: #fff; }
+
+/* Seções com divisor de onda e detalhes de praia */
+.section { position: relative; }
+.section-alt { background: var(--sand); margin-top: 30px; }
+.section-alt::before { content: ''; position: absolute; left: 0; right: 0; top: -29px; height: 30px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 30' preserveAspectRatio='none'%3E%3Cpath d='M0 15 C200 -5 400 35 600 15 S1000 35 1200 15 V30 H0Z' fill='%23ffeec4'/%3E%3C/svg%3E"); background-repeat: repeat-x; background-size: 1200px 30px; pointer-events: none; }
+.section-alt::after { content: ''; position: absolute; right: 3%; bottom: 14px; width: 70px; height: 70px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cpolygon points='45.0,7.0 55.7,30.2 81.1,33.3 62.3,50.6 67.3,75.7 45.0,63.2 22.7,75.7 27.7,50.6 8.9,33.3 34.3,30.2' fill='%23ff6b5b' fill-opacity='0.55' stroke='%23ff6b5b' stroke-opacity='0.55' stroke-width='3' stroke-linejoin='round' transform='rotate(12 45 45)'/%3E%3Ccircle cx='45' cy='45' r='4' fill='%23ffffff' fill-opacity='.7'/%3E%3C/svg%3E") no-repeat center / contain; opacity: .8; pointer-events: none; transform: rotate(12deg); }
+.paw-trail { height: 54px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='54'%3E%3Cg transform='translate(30 34) rotate(18) scale(1.5)' fill='%23b0733f' fill-opacity='0.55'%3E%3Cellipse cx='0' cy='6' rx='7' ry='5.5'/%3E%3Cellipse cx='-9' cy='-2' rx='2.6' ry='3.4' transform='rotate(-20 -9 -2)'/%3E%3Cellipse cx='-3.5' cy='-8' rx='2.6' ry='3.6'/%3E%3Cellipse cx='3.5' cy='-8' rx='2.6' ry='3.6'/%3E%3Cellipse cx='9' cy='-2' rx='2.6' ry='3.4' transform='rotate(20 9 -2)'/%3E%3C/g%3E%3Cg transform='translate(105 18) rotate(-14) scale(1.5)' fill='%23b0733f' fill-opacity='0.55'%3E%3Cellipse cx='0' cy='6' rx='7' ry='5.5'/%3E%3Cellipse cx='-9' cy='-2' rx='2.6' ry='3.4' transform='rotate(-20 -9 -2)'/%3E%3Cellipse cx='-3.5' cy='-8' rx='2.6' ry='3.6'/%3E%3Cellipse cx='3.5' cy='-8' rx='2.6' ry='3.6'/%3E%3Cellipse cx='9' cy='-2' rx='2.6' ry='3.4' transform='rotate(20 9 -2)'/%3E%3C/g%3E%3C/svg%3E"); background-repeat: repeat-x; background-size: 150px 54px; opacity: .6; margin: 0 auto; width: min(1100px, 92%); }
+
+/* Cards mais vivos */
+.card, .svc-card, .price-card, .feature, .req { border-color: #f6e4b0; transition: transform .2s ease, box-shadow .2s ease; }
+.card:hover, .svc-card:hover, .price-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(10, 92, 115, .18); }
+.svc-card { border-top: 6px solid var(--accent); }
+.svc-card:nth-child(2) { border-top-color: var(--primary); }
+.price-card { border-color: #bfeaf7; border-width: 2px; }
+.price { color: var(--primary); }
+.step-n { background: var(--accent); color: #fff; box-shadow: 0 3px 8px rgba(255, 159, 28, .45); }
+.feature-icon, .req-icon, .price-icon { background: linear-gradient(135deg, #d9f4f7, #fff1cc); }
+.card-link { color: var(--primary); }
+a { color: var(--primary); }
+
+/* Revelar ao rolar */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+/* Chamada final e rodapé */
+.cta-banner { background: linear-gradient(135deg, #0a5c73 0%, #0e9aa7 60%, #12b3b8 100%); position: relative; overflow: hidden; box-shadow: 0 16px 36px rgba(10, 92, 115, .3); }
+.cta-banner::before { content: ''; position: absolute; width: 220px; height: 220px; border-radius: 50%; right: -60px; top: -80px; background: rgba(255, 255, 255, .1); }
+.cta-banner::after { content: ''; position: absolute; width: 120px; height: 120px; border-radius: 50%; left: 30%; bottom: -60px; background: rgba(255, 255, 255, .08); }
+.cta-text, .cta-img { position: relative; z-index: 1; }
+.cta-banner p { color: #e8fbfd; }
+.site-footer { background: var(--primary-dark); position: relative; margin-top: 40px; }
+.site-footer::before { content: ''; position: absolute; left: 0; right: 0; top: -29px; height: 30px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 30' preserveAspectRatio='none'%3E%3Cpath d='M0 15 C200 -5 400 35 600 15 S1000 35 1200 15 V30 H0Z' fill='%230a5c73'/%3E%3C/svg%3E"); background-repeat: repeat-x; background-size: 1200px 30px; }
+.footer-logo { background: #fff8e7; }
+
+/* Pacotes de creche */
+.pack-wrap { display: grid; grid-template-columns: 1.6fr 1fr; gap: 24px; margin-top: 22px; align-items: start; }
+.pack-table { background: #fff; border: 2px solid var(--sky); border-radius: 22px; overflow: hidden; box-shadow: var(--shadow); }
+.pack-row { display: grid; grid-template-columns: 1.1fr 1fr 1fr; align-items: center; gap: 8px; padding: 14px 20px; border-top: 1px solid #e9f4f7; }
+.pack-row:first-child { border-top: 0; }
+.pack-head { background: linear-gradient(135deg, #0a5c73, #0e9aa7); color: #fff; font-family: var(--font-title); font-weight: 500; }
+.pack-name { font-weight: 800; color: var(--primary-dark); }
+.pack-name small { display: block; font-weight: 600; color: var(--muted); }
+.pack-val { font-family: var(--font-title); font-size: 1.6rem; color: var(--primary); }
+.pack-val small { font-size: .9rem; }
+.pack-side { display: grid; gap: 14px; }
+.pack-pet { display: flex; align-items: center; gap: 14px; background: #fff; border-radius: 22px; border: 2px solid #f6e4b0; padding: 14px 16px; }
+.pack-pet img { width: 92px; height: 92px; border-radius: 50%; object-fit: cover; object-position: center 25%; border: 4px solid #fff; box-shadow: 0 6px 16px rgba(10, 92, 115, .25); flex: none; }
+.pack-pet p { margin: 0; font-weight: 700; color: var(--primary-dark); }
+.badge-10 { display: flex; gap: 14px; align-items: center; background: linear-gradient(135deg, #ff9f1c, #ff6b5b); color: #fff; border-radius: 22px; padding: 16px 20px; box-shadow: 0 8px 20px rgba(255, 107, 91, .35); }
+.badge-10 strong { font-family: var(--font-title); font-size: 2.6rem; line-height: 1; }
+.badge-10 span { font-weight: 700; line-height: 1.3; }
+.pay-note { background: #fff; border: 2px dashed var(--primary); border-radius: 18px; padding: 14px 18px; margin: 0; }
+.folder-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+
+@media (max-width: 900px) {
+  .pack-wrap { grid-template-columns: 1fr; }
+  .sun { width: 80px; height: 80px; right: 5%; top: 18px; }
+  .hero-photo .pet-bubble { width: 104px; height: 104px; }
+}
+@media (max-width: 520px) {
+  .pack-row { grid-template-columns: 1fr 1fr; }
+  .pack-row .pack-name { grid-column: 1 / -1; }
+  .pack-head { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body::before, .sun, .cloud, .waves i { animation: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+.pack-val .mob { display: none; font-family: var(--font-body); font-weight: 700; color: var(--muted); }
+@media (max-width: 520px) { .pack-val .mob { display: block; } }
