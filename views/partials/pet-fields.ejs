@@ -1,0 +1,51 @@
+<div class="pet-card" data-pet>
+  <div class="pet-card-head">
+    <h3 data-pet-title>Cão <%= Number(i) + 1 %></h3>
+    <button type="button" class="pet-remove" data-pet-remove <%= removable ? '' : 'hidden' %>>Remover</button>
+  </div>
+  <div class="grid-2">
+    <label>Nome do cão
+      <input type="text" name="pets[<%= i %>][pet_name]" maxlength="80" value="<%= p.pet_name || '' %>" required>
+    </label>
+    <label>Raça
+      <input type="text" name="pets[<%= i %>][breed]" maxlength="80" placeholder="Ex: Shih-tzu, SRD" value="<%= p.breed || '' %>" required>
+    </label>
+  </div>
+  <div class="grid-2">
+    <label>Porte
+      <select name="pets[<%= i %>][size]" required>
+        <option value="">Selecione</option>
+        <% Object.keys(labels.size).forEach(function (k) { %>
+          <option value="<%= k %>" <%= p.size === k ? 'selected' : '' %>><%= labels.size[k] %></option>
+        <% }) %>
+      </select>
+    </label>
+    <div class="age-field">
+      <label>Idade
+        <input type="number" name="pets[<%= i %>][age_value]" min="0" max="40" value="<%= Number.isInteger(p.age_value) ? p.age_value : '' %>" required>
+      </label>
+      <label>&nbsp;
+        <select name="pets[<%= i %>][age_unit]" aria-label="Unidade da idade">
+          <option value="anos" <%= p.age_unit !== 'meses' ? 'selected' : '' %>>anos</option>
+          <option value="meses" <%= p.age_unit === 'meses' ? 'selected' : '' %>>meses</option>
+        </select>
+      </label>
+    </div>
+  </div>
+  <p class="q">É castrado(a)?</p>
+  <div class="choice-row">
+    <label class="choice"><input type="radio" name="pets[<%= i %>][neutered]" value="sim" <%= p.neutered === 'sim' ? 'checked' : '' %>> Sim</label>
+    <label class="choice"><input type="radio" name="pets[<%= i %>][neutered]" value="nao" <%= p.neutered === 'nao' ? 'checked' : '' %>> Não</label>
+  </div>
+  <p class="q">É sociável com outros cães?</p>
+  <div class="choice-row">
+    <% Object.keys(labels.sociable).forEach(function (k) { %>
+      <label class="choice"><input type="radio" name="pets[<%= i %>][sociable]" value="<%= k %>" <%= p.sociable === k ? 'checked' : '' %>> <%= labels.sociable[k] %></label>
+    <% }) %>
+  </div>
+  <p class="q">Vacinas em dia?</p>
+  <div class="choice-row">
+    <label class="choice"><input type="radio" name="pets[<%= i %>][vaccinated]" value="sim" <%= p.vaccinated === 'sim' ? 'checked' : '' %>> Sim</label>
+    <label class="choice"><input type="radio" name="pets[<%= i %>][vaccinated]" value="nao" <%= p.vaccinated === 'nao' ? 'checked' : '' %>> Não</label>
+  </div>
+</div>

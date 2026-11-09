@@ -61,7 +61,8 @@ router.get('/agendamentos/:id', async (req, res, next) => {
     const id = parseInt(req.params.id, 10);
     const booking = Number.isInteger(id) ? await db.getBooking(id) : null;
     if (!booking) return res.status(404).render('404', { title: 'Não encontrado' });
-    return res.render('admin/booking', { title: `Pedido #${booking.id}`, booking, saved: req.query.salvo === '1' });
+    const pets = await db.getPets(booking);
+    return res.render('admin/booking', { title: `Pedido #${booking.id}`, booking, pets, saved: req.query.salvo === '1' });
   } catch (err) {
     return next(err);
   }

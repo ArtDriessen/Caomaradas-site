@@ -1,3 +1,18 @@
+<% if (!currentPath.startsWith('/admin')) { %>
+<section class="section map-section" id="como-chegar">
+  <div class="container">
+    <h2>Como <span class="hl">chegar</span></h2>
+    <p class="section-sub"><%= site.address %></p>
+    <div class="map-frame">
+      <iframe title="Mapa com a localização da Cãomaradas" src="https://www.google.com/maps?q=<%= encodeURIComponent(site.address) %>&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    </div>
+    <div class="center map-actions">
+      <a href="https://www.google.com/maps/dir/?api=1&destination=<%= encodeURIComponent(site.address) %>" class="btn" target="_blank" rel="noopener">Como chegar</a>
+      <a href="https://www.google.com/maps/search/?api=1&query=<%= encodeURIComponent(site.address) %>" class="btn btn-outline" target="_blank" rel="noopener">Abrir no Google Maps</a>
+    </div>
+  </div>
+</section>
+<% } %>
 </main>
 <footer class="site-footer">
   <div class="container footer-grid">
@@ -16,6 +31,7 @@
         <li><a href="/servicos/hotel">Hotel</a></li>
         <li><a href="/servicos/creche">Creche e day use</a></li>
         <li><a href="/agendar">Pré-reserva do hotel</a></li>
+        <li><a href="/dayuse">Agendar day use</a></li>
         <li><a href="/avaliacao">Agendar avaliação</a></li>
       </ul>
     </div>
@@ -30,7 +46,7 @@
     <div>
       <h4>Onde estamos</h4>
       <p><%= site.address %></p>
-      <p><a href="https://www.google.com/maps/search/?api=1&query=<%= encodeURIComponent(site.address) %>" target="_blank" rel="noopener">Ver no mapa</a></p>
+      <p><a href="/#como-chegar">Ver no mapa</a></p>
       <p><a href="<%= waLink() %>" target="_blank" rel="noopener"><%= site.phoneDisplay %></a></p>
       <p class="footer-hours">Day use: das 9h às 18h30</p>
     </div>

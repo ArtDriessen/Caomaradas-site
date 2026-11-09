@@ -3,14 +3,18 @@
 <section class="section">
   <div class="container narrow center">
     <div class="success-icon" aria-hidden="true">✅</div>
-    <h1><%= mode === 'avaliacao' ? 'Pedido de avaliação enviado!' : 'Pré-reserva enviada!' %></h1>
+    <h1><%= mode === 'avaliacao' ? 'Pedido de avaliação enviado!' : mode === 'dayuse' ? 'Day use solicitado!' : 'Pré-reserva enviada!' %></h1>
     <p class="section-sub">
-      Recebemos o pedido para <strong><%= booking.pet_name %></strong>.
+      Recebemos o pedido para <strong><%= pets.map(function (x) { return x.pet_name; }).join(', ') %></strong>.
       <% if (mode === 'avaliacao') { %>
         Data preferida para a avaliação: <strong><%= fmtDate(booking.check_in) %></strong>.
         Vamos confirmar o horário com você pelo WhatsApp.
+      <% } else if (mode === 'dayuse') { %>
+        Day use em <strong><%= fmtDate(booking.check_in) %></strong>: <strong><%= fmtMoney(summary.total) %></strong>.
+        Vamos confirmar a vaga pelo WhatsApp.
       <% } else { %>
         Hotel de <strong><%= fmtDate(booking.check_in) %></strong> a <strong><%= fmtDate(booking.check_out) %></strong>.
+        <%= summary.nights %> diária<%= summary.nights > 1 ? 's' : '' %> × <%= summary.pets %> cão<%= summary.pets > 1 ? 's' : '' %> (<%= fmtMoney(summary.rate) %>): total estimado <strong><%= fmtMoney(summary.total) %></strong>.
         Vamos analisar e confirmar a vaga pelo WhatsApp.
       <% } %>
     </p>

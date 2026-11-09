@@ -14,14 +14,15 @@
         <dd><% if (booking.service !== 'hospedagem') { %><%= fmtDate(booking.check_in) %><% } else { %><%= fmtDate(booking.check_in) %> até <%= fmtDate(booking.check_out) %><% } %></dd>
         <dt>Tutor</dt><dd><%= booking.tutor_name %></dd>
         <dt>WhatsApp</dt>
-        <dd><a href="<%= 'https://wa.me/' + booking.whatsapp + '?text=' + encodeURIComponent('Olá, ' + booking.tutor_name + '! Sobre o pedido de agendamento para ' + booking.pet_name + ': ') %>" target="_blank" rel="noopener"><%= booking.whatsapp %></a></dd>
+        <dd><a href="<%= 'https://wa.me/' + booking.whatsapp + '?text=' + encodeURIComponent('Olá, ' + booking.tutor_name + '! Sobre o pedido de agendamento para ' + booking.pet_name + (booking.pets_count > 1 ? ' e outros' : '') + ': ') %>" target="_blank" rel="noopener"><%= booking.whatsapp %></a></dd>
         <% if (booking.email) { %><dt>E-mail</dt><dd><%= booking.email %></dd><% } %>
-        <dt>Cão</dt><dd><%= booking.pet_name %> — <%= booking.breed %></dd>
-        <dt>Porte</dt><dd><%= labels.size[booking.size] %></dd>
-        <dt>Idade</dt><dd><%= booking.age_value %> <%= booking.age_unit %></dd>
-        <dt>Castrado</dt><dd><%= labels.yesNo[booking.neutered] %></dd>
-        <dt>Sociável</dt><dd><%= labels.sociable[booking.sociable] %></dd>
-        <dt>Vacinas em dia</dt><dd><%= labels.yesNo[booking.vaccinated] %></dd>
+        <% if (booking.nights) { %><dt>Diárias</dt><dd><%= booking.nights %></dd><% } %>
+        <% if (booking.total_value != null) { %><dt>Valor estimado</dt><dd><strong><%= fmtMoney(booking.total_value) %></strong> (<%= pets.length %> cão<%= pets.length > 1 ? 'es' : '' %>)</dd><% } %>
+        <% pets.forEach(function (p, i) { %>
+          <dt>Cão <%= pets.length > 1 ? i + 1 : '' %></dt>
+          <dd><strong><%= p.pet_name %></strong> — <%= p.breed %><br>
+            <%= labels.size[p.size] %> · <%= p.age_value %> <%= p.age_unit %> · castrado: <%= labels.yesNo[p.neutered] %> · sociável: <%= labels.sociable[p.sociable] %> · vacinas em dia: <%= labels.yesNo[p.vaccinated] %></dd>
+        <% }) %>
         <% if (booking.notes) { %><dt>Observações do tutor</dt><dd class="pre"><%= booking.notes %></dd><% } %>
         <dt>Recebido em</dt><dd><%= booking.created_at %></dd>
       </dl>

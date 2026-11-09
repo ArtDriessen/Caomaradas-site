@@ -3,6 +3,7 @@ const express = require('express');
 const config = require('./src/config');
 const db = require('./src/db');
 const labels = require('./src/labels');
+const { pricing, fmtMoney } = require('./src/pricing');
 const publicRoutes = require('./src/routes/public');
 const adminRoutes = require('./src/routes/admin');
 
@@ -22,13 +23,15 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.urlencoded({ extended: false, limit: '20kb' }));
+app.use(express.urlencoded({ extended: true, limit: '50kb' }));
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: config.isProd ? '7d' : 0 }));
 
 // Variáveis disponíveis em todas as views
 app.use((req, res, next) => {
   res.locals.site = config.site;
   res.locals.labels = labels;
+  res.locals.pricing = pricing;
+  res.locals.fmtMoney = fmtMoney;
   res.locals.currentPath = req.path;
   res.locals.waLink = (text) =>
     `https://wa.me/${config.site.whatsapp}${text ? `?text=${encodeURIComponent(text)}` : ''}`;

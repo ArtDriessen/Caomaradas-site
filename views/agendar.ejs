@@ -1,11 +1,18 @@
-<%- include('partials/header', { crumbs: [{ label: mode === 'avaliacao' ? 'Creche' : 'Hotel', href: mode === 'avaliacao' ? '/servicos/creche' : '/servicos/hotel' }, { label: mode === 'avaliacao' ? 'Agendar avaliação' : 'Pré-reserva' }] }) %>
-<% const f = locals.form || {}; const isEval = mode === 'avaliacao'; %>
+<% const isEval = mode === 'avaliacao'; const isDay = mode === 'dayuse';
+   const crumbs = isEval ? [{ label: 'Creche', href: '/servicos/creche' }, { label: 'Agendar avaliação' }]
+     : isDay ? [{ label: 'Creche e day use', href: '/servicos/creche' }, { label: 'Agendar day use' }]
+     : [{ label: 'Hotel', href: '/servicos/hotel' }, { label: 'Pré-reserva' }]; %>
+<%- include('partials/header', { crumbs: crumbs }) %>
+<% const f = locals.form || {}; const petList = (f.pets && f.pets.length) ? f.pets : [{}]; %>
 
 <section class="section">
   <div class="container narrow">
     <% if (isEval) { %>
       <h1>Agende uma <span class="hl">avaliação</span> do seu pet</h1>
       <p class="section-sub">Antes de entrar na creche, cada cão passa por uma avaliação. Preencha os dados e a data que prefere: confirmamos o horário com você pelo WhatsApp.</p>
+    <% } else if (isDay) { %>
+      <h1>Agende o <span class="hl">day use</span> do seu pet</h1>
+      <p class="section-sub">Um dia de diversão com a gente, com a mesma segurança da creche. Escolha a data e informe os cães: confirmamos a vaga pelo WhatsApp.</p>
     <% } else { %>
       <h1>Faça sua <span class="hl">pré-reserva</span> no hotel</h1>
       <p class="section-sub">É um pedido de pré-reserva: nós confirmamos a vaga com você pelo WhatsApp. Faça com antecedência para garantir a melhor experiência para o seu pet.</p>
@@ -22,13 +29,13 @@
       </div>
     <% } %>
 
-    <form method="post" action="<%= isEval ? '/avaliacao' : '/agendar' %>" class="form" novalidate data-booking-form>
+    <form method="post" action="<%= isEval ? '/avaliacao' : isDay ? '/dayuse' : '/agendar' %>" class="form" novalidate data-booking-form data-mode="<%= mode %>" data-hotel-single="<%= pricing.hotel.single %>" data-hotel-multi="<%= pricing.hotel.multi %>" data-dayuse="<%= pricing.dayuse %>" data-max-pets="<%= pricing.maxPets %>">
       <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 
       <fieldset>
-        <legend><%= isEval ? 'Data' : 'Datas' %></legend>
-        <% if (isEval) { %>
-          <label>Data preferida para a avaliação
+        <legend><%= isEval || isDay ? 'Data' : 'Datas' %></legend>
+        <% if (isEval || isDay) { %>
+          <label><%= isDay ? 'Data do day use' : 'Data preferida para a avaliação' %>
             <input type="date" name="check_in" min="<%= today %>" value="<%= f.check_in || '' %>" required>
           </label>
         <% } else { %>
@@ -59,63 +66,35 @@
       </fieldset>
 
       <fieldset>
-        <legend>Sobre o cão</legend>
-        <div class="grid-2">
-          <label>Nome do cão
-            <input type="text" name="pet_name" maxlength="80" value="<%= f.pet_name || '' %>" required>
-          </label>
-          <label>Raça
-            <input type="text" name="breed" maxlength="80" placeholder="Ex: Labrador, SRD" value="<%= f.breed || '' %>" required>
-          </label>
-        </div>
-
-        <div class="grid-2">
-          <label>Porte
-            <select name="size" required>
-              <option value="">Selecione</option>
-              <% Object.keys(labels.size).forEach(function (k) { %>
-                <option value="<%= k %>" <%= f.size === k ? 'selected' : '' %>><%= labels.size[k] %></option>
-              <% }) %>
-            </select>
-          </label>
-          <div class="age-field">
-            <label>Idade
-              <input type="number" name="age_value" min="0" max="40" value="<%= f.age_value || '' %>" required>
-            </label>
-            <label>&nbsp;
-              <select name="age_unit" aria-label="Unidade da idade">
-                <option value="anos" <%= f.age_unit !== 'meses' ? 'selected' : '' %>>anos</option>
-                <option value="meses" <%= f.age_unit === 'meses' ? 'selected' : '' %>>meses</option>
-              </select>
-            </label>
-          </div>
-        </div>
-
-        <p class="q">É castrado(a)?</p>
-        <div class="choice-row">
-          <label class="choice"><input type="radio" name="neutered" value="sim" <%= f.neutered === 'sim' ? 'checked' : '' %>> Sim</label>
-          <label class="choice"><input type="radio" name="neutered" value="nao" <%= f.neutered === 'nao' ? 'checked' : '' %>> Não</label>
-        </div>
-
-        <p class="q">É sociável com outros cães?</p>
-        <div class="choice-row">
-          <% Object.keys(labels.sociable).forEach(function (k) { %>
-            <label class="choice"><input type="radio" name="sociable" value="<%= k %>" <%= f.sociable === k ? 'checked' : '' %>> <%= labels.sociable[k] %></label>
+        <legend>Seus cães</legend>
+        <div data-pets>
+          <% petList.forEach(function (p, idx) { %>
+            <%- include('partials/pet-fields', { i: idx, p: p, removable: idx > 0 }) %>
           <% }) %>
         </div>
-
-        <p class="q">Vacinas em dia?</p>
-        <div class="choice-row">
-          <label class="choice"><input type="radio" name="vaccinated" value="sim" <%= f.vaccinated === 'sim' ? 'checked' : '' %>> Sim</label>
-          <label class="choice"><input type="radio" name="vaccinated" value="nao" <%= f.vaccinated === 'nao' ? 'checked' : '' %>> Não</label>
-        </div>
-
+        <button type="button" class="btn btn-outline btn-small" data-pet-add>+ Adicionar outro cão</button>
+        <p class="hint">Você pode cadastrar até <%= pricing.maxPets %> cães do mesmo tutor no mesmo pedido.</p>
         <label>Observações (alimentação, medicamentos, comportamento…)
           <textarea name="notes" rows="4" maxlength="1000"><%= f.notes || '' %></textarea>
         </label>
+        <template id="pet-template">
+          <%- include('partials/pet-fields', { i: '__i__', p: {}, removable: true }) %>
+        </template>
       </fieldset>
 
-      <button type="submit" class="btn btn-full"><%= isEval ? 'Pedir avaliação' : 'Enviar pré-reserva' %></button>
+      <% if (!isEval) { %>
+        <div class="price-box" data-price-box aria-live="polite">
+          <% if (isDay) { %>
+            <p class="price-line"><span data-price-detail>1 cão × <%= fmtMoney(pricing.dayuse) %></span></p>
+          <% } else { %>
+            <p class="price-line"><span data-price-detail>Escolha as datas para ver o valor.</span></p>
+          <% } %>
+          <p class="price-total">Total estimado: <strong data-price-total><%= isDay ? fmtMoney(pricing.dayuse) : '—' %></strong></p>
+          <p class="hint">Valor estimado. A confirmação final é feita por nós pelo WhatsApp.<% if (!isDay) { %> Diária de <%= fmtMoney(pricing.hotel.single) %> (1 cão) ou <%= fmtMoney(pricing.hotel.multi) %> por cão a partir do segundo hóspede.<% } %></p>
+        </div>
+      <% } %>
+
+      <button type="submit" class="btn btn-full"><%= isEval ? 'Pedir avaliação' : isDay ? 'Agendar day use' : 'Enviar pré-reserva' %></button>
     </form>
   </div>
 </section>

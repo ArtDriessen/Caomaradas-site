@@ -41,7 +41,7 @@
                 <td data-label="Período">
                   <% if (b.service !== 'hospedagem') { %><%= fmtDate(b.check_in) %><% } else { %><%= fmtDate(b.check_in) %> → <%= fmtDate(b.check_out) %><% } %>
                 </td>
-                <td data-label="Cão"><strong><%= b.pet_name %></strong><br><small><%= b.breed %> · <%= b.age_value %> <%= b.age_unit %></small></td>
+                <td data-label="Cão"><strong><%= b.pet_name %></strong><%= b.pets_count > 1 ? ' +' + (b.pets_count - 1) + (b.pets_count > 2 ? ' cães' : ' cão') : '' %><br><small><%= b.breed %> · <%= b.age_value %> <%= b.age_unit %></small></td>
                 <td data-label="Porte"><%= b.size %></td>
                 <td data-label="Sociável"><%= labels.sociable[b.sociable] %></td>
                 <td data-label="Tutor"><%= b.tutor_name %><br><small><a href="https://wa.me/<%= b.whatsapp %>" target="_blank" rel="noopener"><%= b.whatsapp %></a></small></td>
