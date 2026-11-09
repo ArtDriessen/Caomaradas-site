@@ -11,7 +11,7 @@ Site em **Node.js (Express + EJS + MySQL)** com:
 ## Folders e fotos
 
 - Day use com agendamento, creche só com agendamento de avaliação, hotel com vários cães e valor total por diárias, mapa do Google no fim das páginas.
-- Fotos em `public/img/`. Para trocar o cãozinho pequeno do fundo e dos folders, substitua `cao-pequeno.jpg` e `cao-pequeno-2.jpg` (use fotos suas ou de bancos gratuitos como Unsplash e Pexels, conferindo a licença).
+- Fotos em `public/img/` (cães enviados pela Cãomaradas): `card-*`, `hero-*`, `cta-*` e `g-*` (galeria da home). Para trocar, substitua o arquivo mantendo o nome e a proporção.
 
 ## Estrutura
 
