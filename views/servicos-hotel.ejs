@@ -1,0 +1,128 @@
+<%- include('partials/header', { crumbs: [{ label: 'Serviços', href: '/#servicos' }, { label: 'Hotel' }] }) %>
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <p class="eyebrow">Hotel para cães</p>
+      <h1>Cuidado, conforto e <span class="hl">segurança</span> para o seu pet</h1>
+      <p class="lead">Um ambiente seguro, monitorado e climatizado, com supervisão constante e muito carinho, enquanto você viaja ou precisa se ausentar.</p>
+      <div class="hero-actions">
+        <a href="/agendar" class="btn">Fazer pré-reserva</a>
+        <a href="<%= waLink('Olá! Gostaria de saber mais sobre o hotel para cães.') %>" class="btn btn-outline" target="_blank" rel="noopener">Falar no WhatsApp</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="/img/cao-hotel.jpg" alt="Cão golden retriever deitado em uma caminha confortável" width="572" height="556">
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Valores da <span class="hl">diária</span></h2>
+    <p class="section-sub">Valores por diária de hospedagem.</p>
+    <div class="price-grid">
+      <article class="price-card">
+        <div class="price-icon" aria-hidden="true">🐶</div>
+        <div>
+          <h3>1 animal</h3>
+          <p>Hospedagem para um pet</p>
+        </div>
+        <p class="price"><span>R$</span> 170<small>,00</small><em>por diária</em></p>
+      </article>
+      <article class="price-card">
+        <div class="price-icon" aria-hidden="true">🐶🐶</div>
+        <div>
+          <h3>2 ou mais animais</h3>
+          <p>Hospedagem para dois ou mais pets</p>
+        </div>
+        <p class="price"><span>R$</span> 135<small>,00</small><em>por animal, por diária</em></p>
+      </article>
+    </div>
+    <p class="notice">📅 <strong>Importante:</strong> faça sua reserva com antecedência e garanta a melhor experiência para o seu pet.</p>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <h2>Aqui seu pet <span class="hl">tem</span></h2>
+    <div class="feature-grid">
+      <div class="feature"><span class="feature-icon" aria-hidden="true">🛡️</span><p><strong>Ambiente seguro e monitorado</strong></p></div>
+      <div class="feature"><span class="feature-icon" aria-hidden="true">👀</span><p><strong>Supervisão constante</strong></p></div>
+      <div class="feature"><span class="feature-icon" aria-hidden="true">💚</span><p><strong>Muito carinho e atenção</strong></p></div>
+      <div class="feature"><span class="feature-icon" aria-hidden="true">❄️</span><p><strong>Ambiente climatizado</strong></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Por dentro do <span class="hl">hotel</span></h2>
+    <p class="section-sub">Do primeiro contato até a volta para casa, em cinco passos.</p>
+    <ol class="steps steps-5">
+      <li><span class="step-n">1</span><div><h3>Pré-reserva</h3><p>Preencha o pedido no site com os dados do tutor, do cão e das datas.</p></div></li>
+      <li><span class="step-n">2</span><div><h3>Confirmação</h3><p>Retornamos pelo WhatsApp para confirmar a vaga e alinhar os detalhes.</p></div></li>
+      <li><span class="step-n">3</span><div><h3>Requisitos</h3><p>Vacinas, controle de pulgas e vermes e castração precisam estar em dia.</p></div></li>
+      <li><span class="step-n">4</span><div><h3>Chegada</h3><p>Na data combinada, o seu pet chega e é recebido pela nossa equipe.</p></div></li>
+      <li><span class="step-n">5</span><div><h3>Estadia com carinho</h3><p>Ele fica em ambiente seguro, climatizado e com supervisão constante.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <h2>Requisitos para <span class="hl">hospedar</span></h2>
+    <p class="section-sub">Tudo para garantir a segurança e o bem-estar de todos.</p>
+    <%- include('partials/requisitos') %>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow">
+    <h2>Perguntas <span class="hl">frequentes</span></h2>
+    <div class="faq">
+      <details>
+        <summary>Quais são os requisitos para hospedar o meu cão?</summary>
+        <p>Vacinas em dia (V8/V10 e antirrábica), controle de pulgas e vermes atualizado, cão socializado e castração obrigatória para cães acima de 6 meses.</p>
+      </details>
+      <details>
+        <summary>Quanto custa a diária?</summary>
+        <p>Para 1 animal, a diária é de R$ 170,00. Para 2 ou mais animais, R$ 135,00 por animal, por diária.</p>
+      </details>
+      <details>
+        <summary>A pré-reserva já garante a vaga?</summary>
+        <p>Não. A pré-reserva é um pedido: analisamos e confirmamos a vaga com você pelo WhatsApp. Por isso, faça com antecedência.</p>
+      </details>
+      <details>
+        <summary>Meu cão não é castrado. Ele pode ficar?</summary>
+        <p>A castração é obrigatória para cães acima de 6 meses. Se tiver dúvida sobre o seu caso, fale com a gente pelo WhatsApp.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <h2>Conheça <span class="hl">também</span></h2>
+    <div class="cards cards-small">
+      <article class="card">
+        <div class="card-icon">🎾</div>
+        <h3>Creche e day use</h3>
+        <p>Diversão e bem-estar para o seu pet por um dia. Agende uma avaliação.</p>
+        <a href="/servicos/creche" class="card-link">Conhecer a creche →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/cta-final', { cta: {
+  title: 'Pronto para reservar a estadia do seu',
+  highlight: 'melhor amigo?',
+  text: 'Faça a pré-reserva e confirmamos a vaga pelo WhatsApp.',
+  button: 'Fazer pré-reserva',
+  href: '/agendar',
+  image: '/img/cao-creche.jpg',
+  waText: 'Olá! Gostaria de saber mais sobre o hotel para cães.'
+} }) %>
+
+<%- include('partials/footer') %>

@@ -19,7 +19,7 @@ async function init() {
   await pool.query(`
     CREATE TABLE IF NOT EXISTS bookings (
       id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-      service ENUM('hospedagem','creche') NOT NULL DEFAULT 'hospedagem',
+      service ENUM('hospedagem','creche','avaliacao') NOT NULL DEFAULT 'hospedagem',
       tutor_name VARCHAR(120) NOT NULL,
       whatsapp VARCHAR(20) NOT NULL,
       email VARCHAR(160) NULL,
@@ -41,6 +41,10 @@ async function init() {
       INDEX idx_check_in (check_in)
     ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
   `);
+  // Bancos criados na primeira versão só aceitavam 'hospedagem' e 'creche'. Esta linha é segura de repetir.
+  await pool.query(
+    "ALTER TABLE bookings MODIFY service ENUM('hospedagem','creche','avaliacao') NOT NULL DEFAULT 'hospedagem'"
+  );
 }
 
 async function createBooking(b) {

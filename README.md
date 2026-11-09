@@ -3,7 +3,8 @@
 Site em **Node.js (Express + EJS + MySQL)** com:
 
 - Página inicial (serviços, como funciona, contato por WhatsApp)
-- Agendamento online de **hospedagem** ou **creche**, com porte, raça, castração, idade, sociabilidade e vacinas
+- Páginas de serviço `/servicos/hotel` e `/servicos/creche` (preços, requisitos, passo a passo e perguntas frequentes)
+- **Pré-reserva do hotel** (`/agendar`) e **agendamento de avaliação** para a creche (`/avaliacao`), com porte, raça, castração, idade, sociabilidade e vacinas
 - Painel administrativo em `/admin` (ver pedidos, confirmar/cancelar, anotações internas, excluir)
 - Botão flutuante de WhatsApp e formulário de contato que abre o WhatsApp com a mensagem pronta
 

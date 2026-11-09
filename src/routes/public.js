@@ -23,10 +23,11 @@ function normalizeWhatsapp(value) {
   return digits;
 }
 
-function validate(body) {
+// service: 'hospedagem' (pré-reserva do hotel) ou 'avaliacao' (avaliação para a creche)
+function validate(body, service) {
   const errors = [];
   const data = {
-    service: clean(body.service, 20),
+    service,
     tutor_name: clean(body.tutor_name, 120),
     whatsapp: normalizeWhatsapp(body.whatsapp),
     email: clean(body.email, 160),
@@ -43,7 +44,6 @@ function validate(body) {
     notes: cleanMultiline(body.notes, 1000),
   };
 
-  if (!Object.keys(labels.service).includes(data.service)) errors.push('Escolha o tipo de serviço.');
   if (data.tutor_name.length < 3) errors.push('Informe o seu nome completo.');
   if (!/^55\d{10,11}$/.test(data.whatsapp)) errors.push('Informe um WhatsApp válido, com DDD.');
   if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) errors.push('O e-mail informado não parece válido.');
@@ -57,14 +57,15 @@ function validate(body) {
   if (!['sim', 'nao'].includes(data.vaccinated)) errors.push('Informe se as vacinas estão em dia.');
 
   const today = todayBR();
+  const inLabel = service === 'avaliacao' ? 'data preferida para a avaliação' : 'data de entrada';
   if (!isValidDate(data.check_in)) {
-    errors.push('Informe a data de entrada.');
+    errors.push(`Informe a ${inLabel}.`);
   } else if (data.check_in < today) {
-    errors.push('A data de entrada não pode ser no passado.');
+    errors.push(`A ${inLabel} não pode ser no passado.`);
   }
 
-  if (data.service === 'creche') {
-    data.check_out = data.check_in; // creche é no mesmo dia
+  if (service === 'avaliacao') {
+    data.check_out = data.check_in; // avaliação é num único dia
   } else if (!isValidDate(data.check_out)) {
     errors.push('Informe a data de saída.');
   } else if (isValidDate(data.check_in) && data.check_out <= data.check_in) {
@@ -74,46 +75,78 @@ function validate(body) {
   return { errors, data };
 }
 
+const FORM_PAGES = {
+  hospedagem: { path: '/agendar', title: 'Pré-reserva do hotel' },
+  avaliacao: { path: '/avaliacao', title: 'Agendar avaliação' },
+};
+
+function showForm(service) {
+  return (req, res) => {
+    res.render('agendar', { title: FORM_PAGES[service].title, mode: service, form: {}, errors: [] });
+  };
+}
+
+function submitForm(service) {
+  return async (req, res) => {
+    const page = FORM_PAGES[service];
+
+    // Campo "isca" para robôs: humanos não preenchem
+    if (req.body.website) return res.redirect('/');
+
+    const { errors, data } = validate(req.body, service);
+    if (errors.length) {
+      return res.status(400).render('agendar', { title: page.title, mode: service, form: req.body, errors });
+    }
+
+    try {
+      await db.createBooking(data);
+    } catch (err) {
+      console.error('Erro ao salvar agendamento:', err.message);
+      return res.status(500).render('agendar', {
+        title: page.title,
+        mode: service,
+        form: req.body,
+        errors: ['Não conseguimos registrar o pedido agora. Tente novamente ou fale com a gente pelo WhatsApp.'],
+      });
+    }
+
+    const ageText = `${data.age_value} ${data.age_unit}`;
+    const pet = `${data.pet_name} (${data.breed}, ${labels.size[data.size]}, ${ageText})`;
+    const message =
+      service === 'avaliacao'
+        ? `Olá! Acabei de pedir uma avaliação para a creche pelo site.\nTutor: ${data.tutor_name}\nCão: ${pet}\nData preferida: ${res.locals.fmtDate(data.check_in)}`
+        : `Olá! Acabei de fazer uma pré-reserva no hotel pelo site.\nTutor: ${data.tutor_name}\nCão: ${pet}\nPeríodo: de ${res.locals.fmtDate(data.check_in)} a ${res.locals.fmtDate(data.check_out)}`;
+
+    return res.render('sucesso', { title: 'Pedido enviado', mode: service, booking: data, message });
+  };
+}
+
 router.get('/', (req, res) => {
   res.render('index', { title: '' });
 });
 
+router.get('/servicos', (req, res) => res.redirect('/#servicos'));
+router.get('/servicos/hotel', (req, res) => {
+  res.render('servicos-hotel', {
+    title: 'Hotel para cães',
+    description: 'Hotel para cães em Pontal do Paraná: ambiente seguro, climatizado e com supervisão constante.',
+  });
+});
+router.get('/servicos/creche', (req, res) => {
+  res.render('servicos-creche', {
+    title: 'Creche e day use para cães',
+    description: 'Creche e day use para cães em Pontal do Paraná. Agende uma avaliação do seu pet.',
+  });
+});
+
 router.get('/agendar', (req, res) => {
-  const service = labels.service[req.query.servico] ? req.query.servico : 'hospedagem';
-  res.render('agendar', { title: 'Agendar', form: { service }, errors: [] });
+  // Links antigos (?servico=creche) agora levam à avaliação
+  if (req.query.servico === 'creche') return res.redirect('/avaliacao');
+  return showForm('hospedagem')(req, res);
 });
+router.post('/agendar', submitForm('hospedagem'));
 
-router.post('/agendar', async (req, res) => {
-  // Campo "isca" para robôs: humanos não preenchem
-  if (req.body.website) return res.redirect('/');
-
-  const { errors, data } = validate(req.body);
-  if (errors.length) {
-    return res.status(400).render('agendar', { title: 'Agendar', form: req.body, errors });
-  }
-
-  try {
-    await db.createBooking(data);
-  } catch (err) {
-    console.error('Erro ao salvar agendamento:', err.message);
-    return res.status(500).render('agendar', {
-      title: 'Agendar',
-      form: req.body,
-      errors: ['Não conseguimos registrar o pedido agora. Tente novamente ou fale com a gente pelo WhatsApp.'],
-    });
-  }
-
-  const ageText = `${data.age_value} ${data.age_unit}`;
-  const period =
-    data.service === 'creche'
-      ? `dia ${res.locals.fmtDate(data.check_in)}`
-      : `de ${res.locals.fmtDate(data.check_in)} a ${res.locals.fmtDate(data.check_out)}`;
-  const message =
-    `Olá! Acabei de fazer um pedido de ${labels.service[data.service].toLowerCase()} pelo site.\n` +
-    `Tutor: ${data.tutor_name}\nCão: ${data.pet_name} (${data.breed}, ${labels.size[data.size]}, ${ageText})\n` +
-    `Período: ${period}`;
-
-  return res.render('sucesso', { title: 'Pedido enviado', booking: data, message });
-});
+router.get('/avaliacao', showForm('avaliacao'));
+router.post('/avaliacao', submitForm('avaliacao'));
 
 module.exports = router;

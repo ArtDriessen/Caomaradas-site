@@ -28,38 +28,16 @@
     });
   }
 
-  // Formulário de agendamento: creche usa só 1 data
+  // Formulário de pré-reserva: a saída precisa ser depois da entrada
   var booking = document.querySelector('[data-booking-form]');
-  if (booking) {
-    var radios = booking.querySelectorAll('input[name="service"]');
-    var checkoutWrap = booking.querySelector('[data-checkout-wrap]');
+  if (booking && booking.elements.check_in && booking.elements.check_out) {
     var checkIn = booking.elements.check_in;
     var checkOut = booking.elements.check_out;
-
-    function currentService() {
-      var checked = booking.querySelector('input[name="service"]:checked');
-      return checked ? checked.value : 'hospedagem';
-    }
-
-    function syncService() {
-      var isDayCare = currentService() === 'creche';
-      checkoutWrap.style.display = isDayCare ? 'none' : '';
-      checkOut.required = !isDayCare;
-    }
-
-    function syncDates() {
-      if (checkIn.value) {
-        checkOut.min = checkIn.value;
-        if (checkOut.value && checkOut.value <= checkIn.value && currentService() !== 'creche') {
-          checkOut.value = '';
-        }
-      }
-    }
-
-    radios.forEach(function (r) { r.addEventListener('change', syncService); });
-    checkIn.addEventListener('change', syncDates);
-    syncService();
-    syncDates();
+    checkIn.addEventListener('change', function () {
+      if (!checkIn.value) return;
+      checkOut.min = checkIn.value;
+      if (checkOut.value && checkOut.value <= checkIn.value) checkOut.value = '';
+    });
   }
 
   // Confirmação antes de ações perigosas

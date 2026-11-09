@@ -1,0 +1,15 @@
+<section class="section">
+  <div class="container">
+    <div class="cta-banner">
+      <div class="cta-text">
+        <h2><%= cta.title %> <span class="hl-light"><%= cta.highlight %></span></h2>
+        <p><%= cta.text %></p>
+        <div class="hero-actions">
+          <a href="<%= cta.href %>" class="btn btn-light"><%= cta.button %></a>
+          <a href="<%= waLink(cta.waText || 'Olá! Vim pelo site e gostaria de mais informações.') %>" class="btn btn-ghost" target="_blank" rel="noopener">Falar no WhatsApp</a>
+        </div>
+      </div>
+      <img src="<%= cta.image %>" alt="" class="cta-img" loading="lazy">
+    </div>
+  </div>
+</section>

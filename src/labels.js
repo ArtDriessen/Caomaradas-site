@@ -1,6 +1,6 @@
 // Textos usados nas telas (fácil de editar)
 module.exports = {
-  service: { hospedagem: 'Hospedagem', creche: 'Creche (day care)' },
+  service: { hospedagem: 'Hotel (pré-reserva)', avaliacao: 'Avaliação (creche)', creche: 'Creche' },
   size: {
     pequeno: 'Pequeno (até ~10 kg)',
     medio: 'Médio (~10 a 25 kg)',

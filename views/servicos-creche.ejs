@@ -1,0 +1,115 @@
+<%- include('partials/header', { crumbs: [{ label: 'Serviços', href: '/#servicos' }, { label: 'Creche' }] }) %>
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <p class="eyebrow">Creche e day use</p>
+      <h1>Diversão e bem-estar para o seu pet <span class="hl">por um dia</span></h1>
+      <p class="lead">Seu pet se diverte, faz amizades e é cuidado com muito amor. Para começar, agende uma avaliação.</p>
+      <div class="hero-actions">
+        <a href="/avaliacao" class="btn">Agendar avaliação</a>
+        <a href="<%= waLink('Olá! Gostaria de saber mais sobre a creche e o day use.') %>" class="btn btn-outline" target="_blank" rel="noopener">Falar no WhatsApp</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="/img/cao-creche.jpg" alt="Cão golden retriever deitado na grama do espaço da creche" width="546" height="752">
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Day <span class="hl">use</span></h2>
+    <p class="section-sub">Um dia de diversão e bem-estar para o seu pet.</p>
+    <div class="price-grid">
+      <article class="price-card">
+        <div class="price-icon" aria-hidden="true">🐾</div>
+        <div>
+          <h3>Valor</h3>
+          <p>Day use</p>
+        </div>
+        <p class="price"><span>R$</span> 100<small>,00</small><em>por pet</em></p>
+      </article>
+      <article class="price-card">
+        <div class="price-icon" aria-hidden="true">🕘</div>
+        <div>
+          <h3>Horário</h3>
+          <p>Entrada e saída no mesmo dia</p>
+        </div>
+        <p class="price price-text">Das 9h<br>às 18h30</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <h2>Como <span class="hl">funciona</span></h2>
+    <p class="section-sub">Antes de frequentar a creche, cada cão passa por uma avaliação.</p>
+    <ol class="steps">
+      <li><span class="step-n">1</span><div><h3>Agende a avaliação</h3><p>Preencha o pedido no site com os dados do tutor e do cão, e a data que prefere.</p></div></li>
+      <li><span class="step-n">2</span><div><h3>Confirmamos o horário</h3><p>Retornamos pelo WhatsApp para combinar o horário da avaliação.</p></div></li>
+      <li><span class="step-n">3</span><div><h3>Conhecemos o seu pet</h3><p>Seu pet vem conhecer o espaço e a nossa equipe, e nós conhecemos ele.</p></div></li>
+      <li><span class="step-n">4</span><div><h3>Combinamos a rotina</h3><p>Definimos juntos a melhor forma de o seu pet frequentar a creche.</p></div></li>
+    </ol>
+    <div class="center"><a href="/avaliacao" class="btn">Agendar avaliação</a></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Requisitos para <span class="hl">frequentar</span></h2>
+    <p class="section-sub">Tudo para garantir a segurança e o bem-estar de todos.</p>
+    <%- include('partials/requisitos') %>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container narrow">
+    <h2>Perguntas <span class="hl">frequentes</span></h2>
+    <div class="faq">
+      <details>
+        <summary>Como faço para o meu cão frequentar a creche?</summary>
+        <p>O primeiro passo é agendar uma avaliação pelo site. Depois confirmamos o horário com você pelo WhatsApp.</p>
+      </details>
+      <details>
+        <summary>Quanto custa o day use e qual o horário?</summary>
+        <p>O day use custa R$ 100,00 por pet, das 9h às 18h30.</p>
+      </details>
+      <details>
+        <summary>Quais são os requisitos?</summary>
+        <p>Vacinas em dia (V8/V10 e antirrábica), controle de pulgas e vermes atualizado, cão socializado e castração obrigatória para cães acima de 6 meses.</p>
+      </details>
+      <details>
+        <summary>O pedido de avaliação já garante o horário?</summary>
+        <p>Não. É um pedido: confirmamos o horário com você pelo WhatsApp.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Conheça <span class="hl">também</span></h2>
+    <div class="cards cards-small">
+      <article class="card">
+        <div class="card-icon">🏡</div>
+        <h3>Hotel</h3>
+        <p>Cuidado, conforto e segurança para o seu pet. Faça a pré-reserva.</p>
+        <a href="/servicos/hotel" class="card-link">Conhecer o hotel →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/cta-final', { cta: {
+  title: 'Vamos conhecer o seu',
+  highlight: 'melhor amigo?',
+  text: 'Agende a avaliação e confirmamos o horário pelo WhatsApp.',
+  button: 'Agendar avaliação',
+  href: '/avaliacao',
+  image: '/img/cao-hotel.jpg',
+  waText: 'Olá! Gostaria de saber mais sobre a creche e o day use.'
+} }) %>
+
+<%- include('partials/footer') %>

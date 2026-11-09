@@ -4,40 +4,51 @@
   <div class="container hero-inner">
     <div class="hero-text">
       <p class="eyebrow">Creche e Hotel · Pontal do Paraná</p>
-      <h1>Onde seu pet se sente em casa</h1>
-      <p class="lead">Na Cãomaradas, seu cão é cuidado com carinho enquanto você trabalha ou viaja. Faça o pedido de agendamento em poucos minutos e confirmamos tudo pelo WhatsApp.</p>
+      <h1>Onde seu pet se sente <span class="hl">em casa</span></h1>
+      <p class="lead">Na Cãomaradas, seu cão se diverte, socializa e recebe todo o cuidado que merece, enquanto você trabalha ou viaja.</p>
       <div class="hero-actions">
-        <a href="/agendar" class="btn">Agendar hospedagem</a>
-        <a href="/agendar?servico=creche" class="btn btn-outline">Agendar creche</a>
+        <a href="<%= waLink('Olá! Vim pelo site e gostaria de mais informações.') %>" class="btn" target="_blank" rel="noopener">Falar no WhatsApp</a>
+        <a href="/agendar" class="btn btn-outline">Pré-reserva do hotel</a>
       </div>
     </div>
-    <div class="hero-art" aria-hidden="true">
-      <% if (site.logo) { %>
-        <img src="<%= site.logo %>" alt="" class="hero-logo">
-      <% } else { %>
-        <div class="hero-paw">🐶</div>
-      <% } %>
+    <div class="hero-photo">
+      <img src="/img/logo-praia.jpg" alt="Logo da Cãomaradas Creche e Hotel em frente ao mar" width="900" height="878">
     </div>
   </div>
 </section>
 
 <section id="servicos" class="section">
   <div class="container">
-    <h2>Nossos serviços</h2>
+    <h2>Nossos <span class="hl">serviços</span></h2>
     <p class="section-sub">Escolha o que combina com a rotina do seu cão.</p>
-    <div class="cards">
-      <article class="card">
-        <div class="card-icon">🏡</div>
-        <h3>Hospedagem</h3>
-        <p>Diárias para o seu cão ficar bem acolhido, como em casa, enquanto você viaja ou precisa se ausentar.</p>
-        <a href="/agendar?servico=hospedagem" class="card-link">Agendar hospedagem →</a>
+    <div class="svc-grid">
+      <article class="svc-card">
+        <img src="/img/cao-hotel.jpg" alt="Cão golden retriever deitado em uma caminha" loading="lazy">
+        <div class="svc-body">
+          <h3>Hotel</h3>
+          <p>Cuidado, conforto e segurança para o seu pet. Ambiente climatizado, monitorado e com supervisão constante.</p>
+          <p class="svc-price">Diária de <strong>R$ 170,00</strong> <span>(2 ou mais pets: R$ 135,00 cada)</span></p>
+          <div class="svc-actions">
+            <a href="/servicos/hotel" class="btn btn-small">Conhecer o hotel</a>
+            <a href="/agendar" class="btn btn-outline btn-small">Pré-reserva</a>
+          </div>
+        </div>
       </article>
-      <article class="card">
-        <div class="card-icon">🎾</div>
-        <h3>Creche</h3>
-        <p>Um dia de atividades, convivência com os amigos e gasto de energia, com entrada e saída no mesmo dia.</p>
-        <a href="/agendar?servico=creche" class="card-link">Agendar creche →</a>
+      <article class="svc-card">
+        <img src="/img/cao-creche.jpg" alt="Cão golden retriever deitado na grama do espaço da creche" loading="lazy">
+        <div class="svc-body">
+          <h3>Creche e day use</h3>
+          <p>Diversão e bem-estar para o seu pet por um dia, das 9h às 18h30. Antes de começar, agende uma avaliação.</p>
+          <p class="svc-price">Day use: <strong>R$ 100,00</strong> <span>por pet</span></p>
+          <div class="svc-actions">
+            <a href="/servicos/creche" class="btn btn-small">Conhecer a creche</a>
+            <a href="/avaliacao" class="btn btn-outline btn-small">Agendar avaliação</a>
+          </div>
+        </div>
       </article>
+    </div>
+
+    <div class="cards cards-small">
       <article class="card">
         <div class="card-icon">🩺</div>
         <h3>Veterinária</h3>
@@ -47,18 +58,26 @@
       <article class="card">
         <div class="card-icon">🐕‍🦺</div>
         <h3>Pet sitter</h3>
-        <p>Cuidado com o seu pet no conforto da rotina dele. Fale com a gente pelo WhatsApp para combinar os detalhes.</p>
+        <p>Cuidado com o seu pet no conforto da rotina dele. Fale com a gente para combinar os detalhes.</p>
         <a href="<%= waLink('Olá! Gostaria de saber mais sobre o serviço de pet sitter.') %>" class="card-link" target="_blank" rel="noopener">Perguntar no WhatsApp →</a>
       </article>
     </div>
   </div>
 </section>
 
-<section id="quem-somos" class="section section-alt">
+<section id="requisitos" class="section section-alt">
+  <div class="container">
+    <h2>Tudo para garantir a <span class="hl">segurança</span> e o bem-estar de todos</h2>
+    <p class="section-sub">Requisitos para hospedar ou frequentar a creche:</p>
+    <%- include('partials/requisitos') %>
+  </div>
+</section>
+
+<section id="quem-somos" class="section">
   <div class="container team">
     <img src="/img/donas.jpg" alt="Bia e Anna, sócias da Cãomaradas" class="team-photo" loading="lazy">
     <div>
-      <h2>Quem cuida do seu cão</h2>
+      <h2>Quem cuida do <span class="hl">seu cão</span></h2>
       <p class="section-sub">A Cãomaradas é um negócio de duas sócias que amam cães, e o seu pet fica nas mãos delas.</p>
       <ul class="team-list">
         <li><strong>Bia</strong> · Pet sitter<br><span>Cuidado de perto, com atenção à rotina e ao jeito de cada cão.</span></li>
@@ -68,22 +87,19 @@
   </div>
 </section>
 
-<section id="como-funciona" class="section">
-  <div class="container">
-    <h2>Como funciona</h2>
-    <ol class="steps">
-      <li><span class="step-n">1</span><div><h3>Preencha o pedido</h3><p>Dados do tutor, do cão e as datas desejadas.</p></div></li>
-      <li><span class="step-n">2</span><div><h3>Confirmamos pelo WhatsApp</h3><p>Analisamos o pedido e retornamos para alinhar os detalhes.</p></div></li>
-      <li><span class="step-n">3</span><div><h3>Traga o seu cão</h3><p>Na data combinada, é só chegar. A gente cuida do resto.</p></div></li>
-    </ol>
-    <div class="center"><a href="/agendar" class="btn">Fazer meu pedido</a></div>
-  </div>
-</section>
+<%- include('partials/cta-final', { cta: {
+  title: 'Seu pet merece um lugar para',
+  highlight: 'chamar de casa',
+  text: 'Faça a pré-reserva do hotel ou agende uma avaliação para a creche. Confirmamos tudo pelo WhatsApp.',
+  button: 'Fazer pré-reserva',
+  href: '/agendar',
+  image: '/img/cao-hotel.jpg'
+} }) %>
 
 <section id="contato" class="section section-alt">
   <div class="container contact">
     <div>
-      <h2>Fale com a gente</h2>
+      <h2>Fale com a <span class="hl">gente</span></h2>
       <p class="section-sub">Dúvidas sobre valores, vagas ou regras? Mande uma mensagem e respondemos pelo WhatsApp.</p>
       <ul class="contact-list">
         <li>📍 <%= site.address %> · <a href="https://www.google.com/maps/search/?api=1&query=<%= encodeURIComponent(site.address) %>" target="_blank" rel="noopener">Ver no mapa</a></li>

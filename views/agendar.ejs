@@ -1,10 +1,19 @@
-<%- include('partials/header') %>
-<% const f = locals.form || {}; %>
+<%- include('partials/header', { crumbs: [{ label: mode === 'avaliacao' ? 'Creche' : 'Hotel', href: mode === 'avaliacao' ? '/servicos/creche' : '/servicos/hotel' }, { label: mode === 'avaliacao' ? 'Agendar avaliação' : 'Pré-reserva' }] }) %>
+<% const f = locals.form || {}; const isEval = mode === 'avaliacao'; %>
 
 <section class="section">
   <div class="container narrow">
-    <h1>Agendar</h1>
-    <p class="section-sub">Preencha os dados abaixo. É um pedido de agendamento: nós confirmamos a vaga com você pelo WhatsApp.</p>
+    <% if (isEval) { %>
+      <h1>Agende uma <span class="hl">avaliação</span> do seu pet</h1>
+      <p class="section-sub">Antes de entrar na creche, cada cão passa por uma avaliação. Preencha os dados e a data que prefere: confirmamos o horário com você pelo WhatsApp.</p>
+    <% } else { %>
+      <h1>Faça sua <span class="hl">pré-reserva</span> no hotel</h1>
+      <p class="section-sub">É um pedido de pré-reserva: nós confirmamos a vaga com você pelo WhatsApp. Faça com antecedência para garantir a melhor experiência para o seu pet.</p>
+    <% } %>
+
+    <div class="note">
+      <strong>Requisitos para os cães:</strong> vacinas em dia (V8/V10 e antirrábica), controle de pulgas e vermes atualizado, cão socializado e castração obrigatória para cães acima de 6 meses.
+    </div>
 
     <% if (locals.errors && errors.length) { %>
       <div class="alert alert-error" role="alert">
@@ -13,27 +22,25 @@
       </div>
     <% } %>
 
-    <form method="post" action="/agendar" class="form" novalidate data-booking-form>
+    <form method="post" action="<%= isEval ? '/avaliacao' : '/agendar' %>" class="form" novalidate data-booking-form>
       <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 
       <fieldset>
-        <legend>Serviço</legend>
-        <div class="choice-row">
-          <label class="choice"><input type="radio" name="service" value="hospedagem" <%= (f.service || 'hospedagem') === 'hospedagem' ? 'checked' : '' %>> Hospedagem</label>
-          <label class="choice"><input type="radio" name="service" value="creche" <%= f.service === 'creche' ? 'checked' : '' %>> Creche (no dia)</label>
-        </div>
-      </fieldset>
-
-      <fieldset>
-        <legend>Datas</legend>
-        <div class="grid-2">
-          <label>Entrada
+        <legend><%= isEval ? 'Data' : 'Datas' %></legend>
+        <% if (isEval) { %>
+          <label>Data preferida para a avaliação
             <input type="date" name="check_in" min="<%= today %>" value="<%= f.check_in || '' %>" required>
           </label>
-          <label data-checkout-wrap>Saída
-            <input type="date" name="check_out" min="<%= today %>" value="<%= f.check_out || '' %>">
-          </label>
-        </div>
+        <% } else { %>
+          <div class="grid-2">
+            <label>Entrada
+              <input type="date" name="check_in" min="<%= today %>" value="<%= f.check_in || '' %>" required>
+            </label>
+            <label>Saída
+              <input type="date" name="check_out" min="<%= today %>" value="<%= f.check_out || '' %>" required>
+            </label>
+          </div>
+        <% } %>
       </fieldset>
 
       <fieldset>
@@ -108,7 +115,7 @@
         </label>
       </fieldset>
 
-      <button type="submit" class="btn btn-full">Enviar pedido de agendamento</button>
+      <button type="submit" class="btn btn-full"><%= isEval ? 'Pedir avaliação' : 'Enviar pré-reserva' %></button>
     </form>
   </div>
 </section>

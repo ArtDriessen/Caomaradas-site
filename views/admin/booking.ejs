@@ -11,7 +11,7 @@
       <dl>
         <dt>Serviço</dt><dd><%= labels.service[booking.service] %></dd>
         <dt>Período</dt>
-        <dd><% if (booking.service === 'creche') { %><%= fmtDate(booking.check_in) %><% } else { %><%= fmtDate(booking.check_in) %> até <%= fmtDate(booking.check_out) %><% } %></dd>
+        <dd><% if (booking.service !== 'hospedagem') { %><%= fmtDate(booking.check_in) %><% } else { %><%= fmtDate(booking.check_in) %> até <%= fmtDate(booking.check_out) %><% } %></dd>
         <dt>Tutor</dt><dd><%= booking.tutor_name %></dd>
         <dt>WhatsApp</dt>
         <dd><a href="<%= 'https://wa.me/' + booking.whatsapp + '?text=' + encodeURIComponent('Olá, ' + booking.tutor_name + '! Sobre o pedido de agendamento para ' + booking.pet_name + ': ') %>" target="_blank" rel="noopener"><%= booking.whatsapp %></a></dd>

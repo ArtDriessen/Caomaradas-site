@@ -6,12 +6,14 @@
   <title><%= locals.title ? locals.title + ' · ' : '' %><%= site.name %></title>
   <meta name="description" content="<%= locals.description || site.tagline %>">
   <meta name="theme-color" content="#4a7f62">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
 <header class="site-header">
   <div class="container header-inner">
     <a href="/" class="brand">
@@ -20,17 +22,33 @@
       <% } else { %>
         <span class="brand-paw" aria-hidden="true">🐾</span>
       <% } %>
-      <span class="brand-name"><%= site.name %></span>
+      <span class="brand-name">Cãomaradas</span>
     </a>
     <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false" data-nav-toggle>
       <span></span><span></span><span></span>
     </button>
     <nav class="nav" data-nav>
-      <a href="/#servicos">Serviços</a>
-      <a href="/#como-funciona">Como funciona</a>
+      <a href="/" class="<%= currentPath === '/' ? 'is-current' : '' %>">Início</a>
+      <a href="/servicos/hotel" class="<%= currentPath === '/servicos/hotel' ? 'is-current' : '' %>">Hotel</a>
+      <a href="/servicos/creche" class="<%= currentPath === '/servicos/creche' ? 'is-current' : '' %>">Creche</a>
+      <a href="/#quem-somos">A Cãomaradas</a>
       <a href="/#contato">Contato</a>
-      <a href="/agendar" class="btn btn-small">Agendar</a>
+      <span class="nav-actions">
+        <a href="/avaliacao" class="btn btn-outline btn-small">Agendar avaliação</a>
+        <a href="/agendar" class="btn btn-small">Pré-reserva</a>
+      </span>
     </nav>
   </div>
 </header>
-<main>
+<% if (locals.crumbs && crumbs.length) { %>
+  <div class="crumbs">
+    <div class="container">
+      <a href="/">Início</a>
+      <% crumbs.forEach(function (c) { %>
+        <span aria-hidden="true">›</span>
+        <% if (c.href) { %><a href="<%= c.href %>"><%= c.label %></a><% } else { %><span class="crumb-current"><%= c.label %></span><% } %>
+      <% }) %>
+    </div>
+  </div>
+<% } %>
+<main id="conteudo">

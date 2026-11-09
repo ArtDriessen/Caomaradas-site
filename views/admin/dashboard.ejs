@@ -39,7 +39,7 @@
                 <td data-label="#"><%= b.id %></td>
                 <td data-label="Serviço"><%= labels.service[b.service] %></td>
                 <td data-label="Período">
-                  <% if (b.service === 'creche') { %><%= fmtDate(b.check_in) %><% } else { %><%= fmtDate(b.check_in) %> → <%= fmtDate(b.check_out) %><% } %>
+                  <% if (b.service !== 'hospedagem') { %><%= fmtDate(b.check_in) %><% } else { %><%= fmtDate(b.check_in) %> → <%= fmtDate(b.check_out) %><% } %>
                 </td>
                 <td data-label="Cão"><strong><%= b.pet_name %></strong><br><small><%= b.breed %> · <%= b.age_value %> <%= b.age_unit %></small></td>
                 <td data-label="Porte"><%= b.size %></td>
